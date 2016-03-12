@@ -44,7 +44,7 @@
   <gap:plugin name="org.apache.cordova.vibration"/>
 
   <!-- Icons and splashscreens -->
-  <icon src="pokdedex_icon.png"/>
+  <icon src="pokedex_icon.png"/>
   <gap:splash src="pikachu_splash.png"/>
   <!--
   <icon src="www/res/icon/android/icon-36-ldpi.png" gap:platform="android" gap:qualifier="ldpi"/>
