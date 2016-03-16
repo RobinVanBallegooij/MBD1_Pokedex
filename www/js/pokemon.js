@@ -1,6 +1,10 @@
 $(document).ready(function() {
 	loadCompendium();
 
+	$(document).on("swiperight",function(){
+    	$("#menuPanel").panel("open");
+	});
+
 	//events
 	$('#compendiumListView').on('click', 'li a.pokemonListItem', loadPokemonDetails);
 });
@@ -73,14 +77,44 @@ function loadPokemonDetails(event) {
 	event.preventDefault();
 
 	var url = $(this).attr('rel');
-	console.log(this);
 	console.log(url);
+
+	$.getJSON(url, function(data) {
+
+		//set details
+		var pokemonName = data.name;
+		var pokemonHeight = data.height;
+		var pokemonWeight = data.weight;
+		var pokemonAbilities = [];
+		var pokemonTypes = [];
+
+		//extract abilities
+		$.each(data.abilities, function() {
+			pokemonAbilities.push(this.ability.name);
+		});
+
+		//extract types
+		$.each(data.types, function() {
+			pokemonTypes.push(this.type.name);
+		});
+
+		console.log('----------------------------');
+		console.log(pokemonName);
+		console.log(pokemonHeight);
+		console.log(pokemonWeight);
+		console.log(pokemonAbilities);
+		console.log(pokemonTypes);
+		console.log('----------------------------');
+	});
+
+	//navigate to details page.
+	$.mobile.navigate("#details");
 };
 
 /* NOTES
 
 API base url: http://pokeapi.co/api/v2/
-
+http://pokeapi.co/media/sprites/pokemon/1.png
 
 
 */
