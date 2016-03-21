@@ -1,5 +1,6 @@
+//INIT
 $(document).ready(function() {
-	loadCompendium();
+	
 
 	$(document).on("swiperight",function(){
     	$("#menuPanel").panel("open");
@@ -7,11 +8,15 @@ $(document).ready(function() {
 
 	//events
 	$('#compendiumListView').on('click', 'li a.pokemonListItem', loadPokemonDetails);
+
+	loadCompendium();
 });
 
 //global variables
 var POKEMON_NUMBER = 0;
 var next = '';
+
+// /INIT
 
 //functions
 function loadCompendium() {
@@ -82,6 +87,7 @@ function loadPokemonDetails(event) {
 	$.getJSON(url, function(data) {
 
 		//set details
+		var pokemonId = data.id;
 		var pokemonName = data.name;
 		var pokemonHeight = data.height;
 		var pokemonWeight = data.weight;
@@ -105,6 +111,28 @@ function loadPokemonDetails(event) {
 		console.log(pokemonAbilities);
 		console.log(pokemonTypes);
 		console.log('----------------------------');
+
+		//set data on details page.
+		var imageUrl = "http://pokeapi.co/media/sprites/pokemon/" + pokemonId + ".png";
+		$('#details_image').attr("src", imageUrl);
+
+		$('#details_name').text("Name: " + pokemonName);
+		$('#details_height').text("Height: " + pokemonHeight);
+		$('#details_weight').text("Weight: " + pokemonWeight);
+
+		//set types
+		for (i = 0; i < pokemonTypes.length; i++) {
+			$('#details_types').append(pokemonTypes[i]);
+			if (i < pokemonTypes.length - 1) {
+				$('#details_types').append(", ");
+			}
+		}
+
+		//set abilities
+		for (i = 0; i < pokemonAbilities.length; i++) {
+			$('#details_abilities').append("<div class=\"ability\">" + pokemonAbilities[i] + "</div>");
+		}
+
 	});
 
 	//navigate to details page.
