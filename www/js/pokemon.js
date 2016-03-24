@@ -68,12 +68,14 @@ function loadNext(page) {
 		$.getJSON(next, function(data) {
 			next = data.next;
 
-			$.each(data.results, function() {
-				pokemon_number++;
-				nextListContent += '<li><a href="#" class="pokemonListItem" rel="' + this.url + '">#' + pokemon_number + ' ' + this.name + '</a></li>';
-			});
-
-			$("#compendiumListView", page).append(nextListContent).listview("refresh");
+			if (next !== null) {
+				$.each(data.results, function() {
+					pokemon_number++;
+					nextListContent += '<li><a href="#" class="pokemonListItem" rel="' + this.url + '">#' + pokemon_number + ' ' + this.name + '</a></li>';
+				});
+	
+				$("#compendiumListView", page).append(nextListContent).listview("refresh");
+			}
 		});
 	}
 };
@@ -106,6 +108,12 @@ $(document).on("scrollstop", function (e) {
 
 function loadPokemonDetails(event) {
 	event.preventDefault();
+
+	$.mobile.loading("show", {
+        text: "loading more..",
+        textVisible: true,
+        theme: "a"
+    });
 
 	var url = $(this).attr('rel');
 
@@ -158,6 +166,9 @@ function loadPokemonDetails(event) {
 		}
 
 	});
+
+	$.mobile.loading("hide");
+	
 };
 
 function clearPokemonDetails() {
