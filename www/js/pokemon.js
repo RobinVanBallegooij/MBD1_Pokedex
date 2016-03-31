@@ -1,27 +1,40 @@
 //INIT
 $(document).ready(function() {
 
-	$(document).on("swiperight", function() {
-    	$("#menuPanel").panel("open");
-	});
+	document.addEventListener("deviceready", setup, false);
 
-	//events
-	$('#compendiumListView').on('click', 'li a.pokemonListItem', loadPokemonDetails);
+	//LIFECYCLE EVENTS
 
-	loadCompendium();
-
-	//menu panel
-    $(document).on('click', '#open_menu', function(){   
-       	$.mobile.activePage.find('#menuPanel').panel("open");       
-    });
-
-    //page create events.
+	//page create event
     $(document).on("pagecreate", function(event) {
     	var pageCreated = event.target.id;
 
     });
 
-    //hide page event.
+    //page before show event
+	$(document).on("pagebeforeshow", function(event, data) {
+		var page = data.toPage[0].id;
+
+		if (page === "ownedPokemon") {
+			loadOwnedPokemon();
+		}
+	});
+
+	//page show event
+	$(document).on("pageshow", function(event, data) {
+		var page = data.toPage[0].id;
+
+		if (page === "details") {
+			console.log(page);
+			$.mobile.loading("show", {
+    		    text: "loading..",
+    		    textVisible: true,
+    		    theme: "a"
+    		});
+		}
+	});
+
+	//page hide event
     $(document).on("pagehide", function(event) {
     	var pageHidden = event.target.id;
 
@@ -35,7 +48,30 @@ $(document).ready(function() {
 
     });
 
+	//click events
+	$('#compendiumListView').on('click', 'li a.pokemonListItem', loadPokemonDetails);
+
+	$('#ownedPokemonListView').on('click', 'li a.pokemonListItem', loadPokemonDetails);
+
+	//menu panel
+    $(document).on('click', '#open_menu', function(){   
+       	$.mobile.activePage.find('#menuPanel').panel("open");       
+    });
+
+    //menu swipe
+	$(document).on("swiperight", function() {
+    	$("#menuPanel").panel("open");
+	});
+
+	//initialization
+	loadCompendium();
+	loadOwnedPokemon();
+
 });
+
+function setup() {
+	console.log("setup");
+}
 
 //global variables
 var TOTAL_POKEMON_COUNT = 721;
@@ -58,6 +94,7 @@ function loadCompendium() {
 		});
 
 		$('#compendiumListView').html(listContent);
+		$('#compendiumListView').listview("refresh");
 	});
 };
 
@@ -109,16 +146,14 @@ $(document).on("scrollstop", function (e) {
 function loadPokemonDetails(event) {
 	event.preventDefault();
 
-	$.mobile.loading("show", {
-        text: "loading more..",
-        textVisible: true,
-        theme: "a"
-    });
+	
 
 	var url = $(this).attr('rel');
 
 	//navigate to details page.
 	$.mobile.navigate("#details");
+
+
 
 	$.getJSON(url, function(data) {
 
@@ -165,10 +200,10 @@ function loadPokemonDetails(event) {
 			$('#details_abilities').append("<div class=\"ability\">" + pokemonAbilities[i] + "</div>");
 		}
 
+		$.mobile.loading("hide");
+
 	});
 
-	$.mobile.loading("hide");
-	
 };
 
 function clearPokemonDetails() {
@@ -180,6 +215,44 @@ function clearPokemonDetails() {
 
 	$('#details_types').empty();
 	$('#details_abilities').empty();
+}
+
+// OWNED POKEMON
+
+function loadOwnedPokemon() {
+
+	console.log("LOAD OWNED POKEMON");
+	var listContent = '';
+
+	var ownedPokemon = getOwnedPokemon();
+
+	if (ownedPokemon !== null) {
+		for (i = 0; i < ownedPokemon.length; i++) {
+			//loop over owned pokemon and get info for each pokemon through the API.
+			var url = "http://pokeapi.co/api/v2/pokemon/" + ownedPokemon[i];
+
+			$.getJSON(url, function(data) {
+
+				var id = data.id;
+				var name = data.name;
+
+				listContent += '<li><a href="#" class="pokemonListItem" rel="' + url + '">#' + id + ' ' + name + '</a></li>';
+
+				//console.log(listContent);
+				console.log(i);
+				console.log(ownedPokemon.length);
+
+				//refresh list on last request.
+				if (i == ownedPokemon.length - 1) {
+					console.log("last owned pokemon");
+					//console.log(listContent);
+					//$('#ownedPokemonListView').html(listContent);
+					//$('#ownedPokemonListView').listview("refresh");
+				}
+	
+			});
+		}
+	}
 }
 
 /* NOTES
