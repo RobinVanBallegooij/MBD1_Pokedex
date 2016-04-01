@@ -44,7 +44,7 @@
                 <ul data-role="listview" data-theme="a">
                     <li><a href="#compendium">Compendium</a></li>
                     <li><a href="#ownedPokemon">My Pokémon</a></li>
-                    <li><a href="#">Hunt</a></li>
+                    <li><a href="#geoHunt">Hunt</a></li>
                     <li><a href="#">Trade</a></li>
                 </ul>
             </div>
@@ -67,7 +67,7 @@
                 <ul data-role="listview" data-theme="a">
                     <li><a href="#compendium">Compendium</a></li>
                     <li><a href="#ownedPokemon">My Pokémon</a></li>
-                    <li><a href="#">Hunt</a></li>
+                    <li><a href="#geoHunt">Hunt</a></li>
                     <li><a href="#">Trade</a></li>
                 </ul>
             </div>
@@ -91,7 +91,7 @@
                 <ul data-role="listview" data-theme="a">
                     <li><a href="#compendium">Compendium</a></li>
                     <li><a href="#ownedPokemon">My Pokémon</a></li>
-                    <li><a href="#">Hunt</a></li>
+                    <li><a href="#geoHunt">Hunt</a></li>
                     <li><a href="#">Trade</a></li>
                 </ul>
             </div>
@@ -118,7 +118,7 @@
                 <ul data-role="listview" data-theme="a">
                     <li><a href="#compendium">Compendium</a></li>
                     <li><a href="#ownedPokemon">My Pokémon</a></li>
-                    <li><a href="#">Hunt</a></li>
+                    <li><a href="#geoHunt">Hunt</a></li>
                     <li><a href="#">Trade</a></li>
                 </ul>
             </div>
@@ -131,13 +131,41 @@
                 </ul>
             </div>
         </div>
-
         <!-- End owned pokemon -->
+
+        <!-- Geo hunt -->
+        <div data-role="page" id="geoHunt" data-theme="a">
+            <div id="menuPanel" data-role="panel" data-theme="a">
+                <ul data-role="listview" data-theme="a">
+                    <li><a href="#compendium">Compendium</a></li>
+                    <li><a href="#ownedPokemon">My Pokémon</a></li>
+                    <li><a href="#geoHunt">Hunt</a></li>
+                    <li><a href="#">Trade</a></li>
+                </ul>
+            </div>
+            <div data-role="header" data-position="fixed">
+                <a href="#" id="open_menu" class="ui-btn-left ui-btn-corner-all ui-btn ui-icon-grid ui-btn-icon-notext ui-shadow" title=" Menu " data-form="ui-icon" data-role="button" role="button"> Menu </a>
+                <h1>Hunt pokemon</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <div>
+                    <div id="geo_latitude"></div>
+                    <div id="geo_longitude"></div>
+                </div>
+                <div>
+                    <button id="button_random_geo_location">Random location</button>
+                    <div id="geo_latitude_random"></div>
+                    <div id="geo_longitude_random"></div>
+                </div>
+            </div>
+        </div>
+        <!-- End geo hunt -->
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/pokemon.js"></script>
         <script type="text/javascript" src="js/data.js"></script>
+        <script type="text/javascript" src="js/geo.js"></script>
         <script type="text/javascript">
             app.initialize();
         </script>
