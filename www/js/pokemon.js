@@ -1,7 +1,9 @@
 //INIT
-$(document).ready(function() {
+document.addEventListener("deviceready", setup, false);
 
-	document.addEventListener("deviceready", setup, false);
+
+function setup() {
+	console.log("setup");
 
 	//LIFECYCLE EVENTS
 
@@ -62,11 +64,6 @@ $(document).ready(function() {
 	//initialization
 	loadCompendium();
 	loadOwnedPokemon();
-
-});
-
-function setup() {
-	console.log("setup");
 }
 
 //global variables
@@ -217,30 +214,31 @@ function loadOwnedPokemon() {
 	var listContent = '';
 
 	var ownedPokemon = getOwnedPokemon();
-	var count = 0;
 
-		if (ownedPokemon !== null) {
+	if (ownedPokemon !== null) {
 
-			$.each(ownedPokemon, function(index, value) {
+		$.each(ownedPokemon, function(index, value) {
 
-				//loop over owned pokemon and get info for each pokemon through the API.
-				var url = "http://pokeapi.co/api/v2/pokemon/" + ownedPokemon[index];
+			//loop over owned pokemon and get info for each pokemon through the API.
+			var url = "http://pokeapi.co/api/v2/pokemon/" + ownedPokemon[index];
+
+			$.getJSON(url, function(data) {
 	
-				$.getJSON(url, function(data) {
-		
-					var id = data.id;
-					var name = data.name;
-		
-					listContent += '<li><a href="#" class="pokemonListItem" rel="' + url + '">#' + id + ' ' + name + '</a></li>';	
-		
-					//console.log(listContent);
-					$('#ownedPokemonListView').html(listContent);
-					$('#ownedPokemonListView').listview("refresh");
-
-				});
+				var id = data.id;
+				var name = data.name;
+	
+				listContent += '<li><a href="#" class="pokemonListItem" rel="' + url + '">#' + id + ' ' + name + '</a></li>';	
+	
+				//console.log(listContent);
+				$('#ownedPokemonListView').html(listContent);
+				$('#ownedPokemonListView').listview("refresh");
 
 			});
-		}
+
+		});
+	} else {
+		addInitialPokemon();
+	}
 }
 
 /* NOTES
