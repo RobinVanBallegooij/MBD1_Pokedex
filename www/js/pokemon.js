@@ -26,11 +26,7 @@ $(document).ready(function() {
 
 		if (page === "details") {
 			console.log(page);
-			$.mobile.loading("show", {
-    		    text: "loading..",
-    		    textVisible: true,
-    		    theme: "a"
-    		});
+			showLoader("Loading..");
 		}
 	});
 
@@ -118,14 +114,10 @@ function loadNext(page) {
 };
 
 function addMore(page) {
-    $.mobile.loading("show", {
-        text: "loading more..",
-        textVisible: true,
-        theme: "a"
-    });
+    showLoader("Loading more..");
     setTimeout(function () {
         loadNext(page); 
-        $.mobile.loading("hide");
+       hideLoader();
     }, 500);
 };
 
@@ -200,7 +192,7 @@ function loadPokemonDetails(event) {
 			$('#details_abilities').append("<div class=\"ability\">" + pokemonAbilities[i] + "</div>");
 		}
 
-		$.mobile.loading("hide");
+		hideLoader();
 
 	});
 

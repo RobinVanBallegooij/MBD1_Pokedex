@@ -101,7 +101,7 @@
             </div>
             <div data-role="main" class="ui-content">
                 <div>
-                    <img id="details_image" src="" alt="Pokemon" width="96" height="96" />
+                    <img id="details_image" src="" alt="Pokemon" class="pokemon-image" />
                     <p id="details_name"></p>
                     <p id="details_height"></p>
                     <p id="details_weight"></p>
@@ -148,16 +148,33 @@
                 <h1>Hunt pokemon</h1>
             </div>
             <div data-role="main" class="ui-content">
-                <div>
-                    <div id="geo_latitude"></div>
+                <div class="margin-bottom">
+                    <h4>Current position:</h4>
                     <div id="geo_longitude"></div>
+                    <div id="geo_latitude"></div>
+                </div>
+                <div class="margin-bottom">
+                    <h4>Target:</h4>
+                    <select class="geo-location-select" name="select-choice" id="select-choice-a" data-native-menu="false" data-theme="a" data-form="ui-btn-up-a" tabindex="-1">
+                    </select>
                 </div>
                 <div>
-                    <button id="button_random_geo_location">Random location</button>
-                    <div id="geo_latitude_random"></div>
-                    <div id="geo_longitude_random"></div>
+                    <h4>Status:</h4>
+                    <div id="geo_hunt_status" class="margin-bottom">Select a target</div>
+                    <button id="catch">Catch</button>
                 </div>
             </div>
+            <!-- Catch popup -->
+            <div data-role="popup" id="catchPopup">
+                <div data-role="header">
+                    <div class="dialog-header">You caught a pokemon!</div>
+                </div>
+                <div data-role="main" class="ui-content">
+                    <div id="catch_image"></div>
+                    <div id="catch_name" class="center-text"></div>
+                </div>
+            </div>
+            <!-- End catch popup -->
         </div>
         <!-- End geo hunt -->
 
@@ -166,6 +183,7 @@
         <script type="text/javascript" src="js/pokemon.js"></script>
         <script type="text/javascript" src="js/data.js"></script>
         <script type="text/javascript" src="js/geo.js"></script>
+        <script type="text/javascript" src="js/utilities.js"></script>
         <script type="text/javascript">
             app.initialize();
         </script>

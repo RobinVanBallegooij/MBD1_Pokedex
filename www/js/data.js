@@ -38,6 +38,21 @@ function getOwnedPokemon() {
 	return ownedPokemon;
 }
 
+function ownsPokemonWithId(id) {
+	var ownedPokemon = window.localStorage.getArray("ownedPokemon");
+
+	if (ownedPokemon !== null) {
+		var index = ownedPokemon.indexOf(id);
+		if (index !== -1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	return false;
+}
+
 function clearLocalStorage() {
 	console.log("clear local storage");
 	window.localStorage.clear();
@@ -57,30 +72,13 @@ function addInitialPokemon() {
 
 // GEO HUNT
 
-$("#button_random_geo_location").on('click', generateRandomGeoLocations);
+function storeGeoLocations(geoLocations) {
 
-//min and max values for Den Bosch
-var MIN_LONGITUDE = 5.2547515;
-var MAX_LONGITUDE = 5.3489936;
-var MIN_LATITUDE = 51.6824922;
-var MAX_LATITUDE = 51.7204729;
-var NUMBER_OF_LOCATIONS = 10;
-
-function generateRandomGeoLocations() {
-	var geoLocations = new Array();
-
-	var avansPosition = {longitude:5.2866380, latitude:51.6885180};
-
-	for (i = 0; i < NUMBER_OF_LOCATIONS; i++) {
-		var randomLongitude = (Math.random() * (MAX_LONGITUDE - MIN_LONGITUDE) + MIN_LONGITUDE);
-		var randomLatitude = (Math.random() * (MAX_LATITUDE - MIN_LATITUDE) + MIN_LATITUDE);
-
-		var position = {longitude:randomLongitude, latitude:randomLatitude};
-		console.log(position);
-	}
-
+	window.localStorage.setArray("geoLocations", geoLocations);
 }
 
-function storeGeoLocations() {
-	
+function getStoredGeoLocations() {
+	var geoLocations = window.localStorage.getArray("geoLocations");
+
+	return geoLocations;
 }

@@ -119,3 +119,41 @@ h1 {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+.pokemonlocation {
+    height: 60px;
+}
+
+.margin-bottom {
+    margin-bottom: 30px;
+}
+
+.text-lightgreen {
+    color: lightgreen;
+}
+
+.text-orange {
+    color: orange;
+}
+
+.text-gray {
+    color: gray;
+}
+
+.dialog-header {
+    padding: 5px 15px 5px 15px;
+}
+
+.pokemon-image {
+    width: 96px;
+    height: 96px;
+}
+
+.center-img {
+    display: block;
+    margin: 0 auto;
+}
+
+.center-text {
+    text-align: center;
+}
