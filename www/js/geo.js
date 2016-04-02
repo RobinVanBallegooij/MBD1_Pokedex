@@ -6,6 +6,8 @@ function setupGeo() {
 	var currentPosition = navigator.geolocation.getCurrentPosition(updateLocationData);
 	var watchId = navigator.geolocation.watchPosition(updateLocationData);
 
+	window.localStorage.removeItem("geoLocations");
+
 	loadGeoLocations();
 
 	//select hunt target
@@ -30,6 +32,9 @@ function setupGeo() {
 	$("#catch").on("click", function() {
 		catchPokemon();
 	});
+
+	//disable catch button initially.
+	$("#catch").prop("disabled", true);
 
 	//popup after close event.
 	$("#catchPopup").bind({
@@ -60,7 +65,9 @@ function generateRandomGeoLocations() {
 	var geoLocations = new Array();
 
 	var avansPosition = {longitude:5.2866380, latitude:51.6885180};
+	var testlocation = {longitude:5.4359651, latitude:51.8060321};
 	geoLocations.push(avansPosition);
+	geoLocations.push(testlocation);
 
 	for (i = 0; i < NUMBER_OF_LOCATIONS; i++) {
 		var randomLongitude = (Math.random() * (MAX_LONGITUDE - MIN_LONGITUDE) + MIN_LONGITUDE);
@@ -126,6 +133,8 @@ function checkVicinityStatus() {
 			if ((Math.abs(currentLongitude - targetLongitude) < margin_longitude) && (Math.abs(currentLatitude - targetLatitude) < margin_latitude)) {
 				$("#geo_hunt_status").removeClass().addClass('margin-bottom text-lightgreen');
 				$("#geo_hunt_status").text("You can catch the pokemon");
+				//enable catch button.
+				$("#catch").prop("disabled", false);
 				return true;
 			} else {
 				$("#geo_hunt_status").removeClass().addClass('margin-bottom text-gray');
@@ -134,7 +143,8 @@ function checkVicinityStatus() {
 
 		}	
 	}
-
+	//disable catch button.
+	$("#catch").prop("disabled", true);
 	return false;
 }
 
@@ -189,5 +199,9 @@ function clearCaughtPokemon() {
 
 //var margin_lat = 0.00079801;
 //var margin_lat = 0.0005587;
+
+home:
+
+var testlocation = {longitude:5.4359651, latitude:51.8060321};
 
 */

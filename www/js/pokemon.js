@@ -26,10 +26,11 @@ function setup() {
 	$(document).on("pageshow", function(event, data) {
 		var page = data.toPage[0].id;
 
-		if (page === "details") {
-			console.log(page);
-			showLoader("Loading..");
+		switch (page) {
+			case 'details' : 	showLoader("Loading..");
+								break;
 		}
+
 	});
 
 	//page hide event
@@ -37,10 +38,7 @@ function setup() {
     	var pageHidden = event.target.id;
 
     	switch(pageHidden) {
-    		case 'details': 	console.log("hid details");
-    							clearPokemonDetails();
-    							break;
-    		case 'compendium': 	console.log("hid compendium");
+    		case 'details': 	clearPokemonDetails();
     							break;
     	}
 
@@ -88,6 +86,7 @@ function loadCompendium() {
 
 		$('#compendiumListView').html(listContent);
 		$('#compendiumListView').listview("refresh");
+
 	});
 };
 
@@ -135,14 +134,10 @@ $(document).on("scrollstop", function (e) {
 function loadPokemonDetails(event) {
 	event.preventDefault();
 
-	
-
 	var url = $(this).attr('rel');
 
 	//navigate to details page.
 	$.mobile.navigate("#details");
-
-
 
 	$.getJSON(url, function(data) {
 
@@ -166,7 +161,8 @@ function loadPokemonDetails(event) {
 
 		//set data on details page.
 		var imageUrl = "http://pokeapi.co/media/sprites/pokemon/" + pokemonId + ".png";
-		$('#details_image').attr("src", imageUrl);
+
+		$('#details_image_container').append('<img id="details_image" src="' + imageUrl + '" alt="Pokemon" class="pokemon-image" />');
 
 		$('#details_name').text("Name: " + pokemonName);
 		$('#details_height').text("Height: " + pokemonHeight);
@@ -196,11 +192,11 @@ function loadPokemonDetails(event) {
 };
 
 function clearPokemonDetails() {
-	$('#details_image').attr("src", "");
+	$('#details_image_container').empty();
 
-	$('#details_name').text("");
-	$('#details_height').text("");
-	$('#details_weight').text("");
+	$('#details_name').empty();
+	$('#details_height').empty();
+	$('#details_weight').empty();
 
 	$('#details_types').empty();
 	$('#details_abilities').empty();
