@@ -6,6 +6,8 @@ function setupGeo() {
 	var currentPosition = navigator.geolocation.getCurrentPosition(updateLocationData);
 	var watchId = navigator.geolocation.watchPosition(updateLocationData);
 
+	activateCompass();
+
 	loadGeoLocations();
 
 	//select hunt target
@@ -228,6 +230,63 @@ function reloadGeoLocations() {
 	checkVicinityStatus();
 	$("select").selectmenu("refresh", true);
 }
+
+// COMPASS
+
+function activateCompass() {
+	navigator.compass.getCurrentHeading(updateCompass);
+	navigator.compass.watchHeading(updateCompass);
+}
+
+function updateCompass(heading) {
+
+	if (currentLocation !== null && selectedLocation !== null) {
+		var bearing = calculateBearing(currentLocation.coords.latitude, currentLocation.coords.longitude, selectedLocation.latitude, selectedLocation.longitude);
+
+		var magneticHeading = heading.magneticHeading;
+		console.log(magneticHeading);
+	
+		//rotate image.
+		if (bearing !== null) {
+			var resultAngle = calculateRelativeAngle(bearing, magneticHeading);
+			if (resultAngle !== null) {
+				$("#compass").rotate(resultAngle);
+			}	
+		}	
+	} else {
+		$("#compass").rotate(0);
+	}
+	
+}
+
+function calculateRelativeAngle(targetBearing, compassHeading) {
+	var delta =  targetBearing - compassHeading;
+	var relativeAngle = null;
+
+	//determine relative angle in degrees.
+	//positive delta = rotate right.
+	//negative delta = rotate left.
+	if (delta < 0) {
+		relativeAngle = 360 + delta;
+	} else {
+		relativeAngle = delta;
+	}
+
+	return relativeAngle;
+}
+
+function calculateBearing(lat1,lng1,lat2,lng2) {
+        var dLon = (lng2-lng1);
+        var y = Math.sin(dLon) * Math.cos(lat2);
+        var x = Math.cos(lat1)*Math.sin(lat2) - Math.sin(lat1)*Math.cos(lat2)*Math.cos(dLon);
+        var brng = toDegree(Math.atan2(y, x));
+        return 360 - ((brng + 360) % 360);
+}
+
+function toDegree(rad) {
+    return rad * 180 / Math.PI;
+}
+
 
 /* Notes
 
