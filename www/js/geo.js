@@ -244,7 +244,7 @@ function reloadGeoLocations() {
 //var margin_lat = 0.00079801;
 //var margin_lat = 0.0005587;
 
-home:
+test location:
 
 var testlocation = {longitude:5.4359651, latitude:51.8060321};
 
