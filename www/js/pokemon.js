@@ -56,7 +56,7 @@ function setup() {
 
     //menu swipe
 	$(document).on("swiperight", function() {
-    	$("#menuPanel").panel("open");
+    	$.mobile.activePage.find('#menuPanel').panel("open");    
 	});
 
 	//initialization
@@ -137,7 +137,7 @@ function loadPokemonDetails(event) {
 	var url = $(this).attr('rel');
 
 	//navigate to details page.
-	$.mobile.navigate("#details");
+	$.mobile.navigate("#details", {transition: "slide"});
 
 	$.getJSON(url, function(data) {
 

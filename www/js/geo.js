@@ -6,23 +6,26 @@ function setupGeo() {
 	var currentPosition = navigator.geolocation.getCurrentPosition(updateLocationData);
 	var watchId = navigator.geolocation.watchPosition(updateLocationData);
 
-	window.localStorage.removeItem("geoLocations");
-
 	loadGeoLocations();
 
 	//select hunt target
 	$('.geo-location-select').change(function() {
+
+		console.log("changed");
 
 		//get selected geo location
 		var index = $('option:selected', this).attr('id');
 		
 		var geoLocations = getStoredGeoLocations();
 
+
 		if (geoLocations !== null) {
 			var location = geoLocations[index];
+			console.log(location);
 
 			if (typeof location !== 'undefined') {
 				selectedLocation = location;
+				console.log("Changed target");
 				checkVicinityStatus();
 			}
 		}
@@ -41,6 +44,12 @@ function setupGeo() {
 		popupafterclose: function(event, ui) {
 			clearCaughtPokemon();
 		}
+	});
+
+	//reload geo locations
+	$("#new_geo_locations").on("click", function() {
+		console.log("load new locations");
+		reloadGeoLocations();
 	});
 
 }
@@ -115,6 +124,7 @@ function loadGeoLocations() {
 	});
 
 	$(".geo-location-select").html(geoLocationContent);
+	console.log("geolocations loaded");
 }
 
 function checkVicinityStatus() {
@@ -142,6 +152,9 @@ function checkVicinityStatus() {
 			}
 
 		}	
+	} else {
+		$("#geo_hunt_status").removeClass().addClass('margin-bottom');
+		$("#geo_hunt_status").text("Select a target");
 	}
 	//disable catch button.
 	$("#catch").prop("disabled", true);
@@ -170,12 +183,15 @@ function catchPokemon() {
 
 			//show popup.
 			$("#catchPopup").popup("open");
+
 		});
 	
 		//check if user owns pokemon. If not, add it.
 		if (!ownsPokemonWithId(randomPokemonId)) {
 			storePokemonWithId(randomPokemonId);
 		}
+
+		removeTargetLocation();
 	}
 }
 
@@ -183,6 +199,34 @@ function catchPokemon() {
 function clearCaughtPokemon() {
 	$("#catch_image").empty();
 	$("#catch_name").empty();
+}
+
+function removeTargetLocation() {
+
+	if (selectedLocation !== null) {
+		var selectedTarget = $(".geo-location-select").find(":selected").attr("id");
+
+		$(".geo-location-select option[id='" + selectedTarget + "']").remove();
+		
+	
+		if (selectedLocation !== null) {
+			removeGeoLocation(selectedLocation);
+			selectedLocation = null;
+			checkVicinityStatus();
+			loadGeoLocations();
+		}
+
+		$("select").selectmenu("refresh", true);
+	}
+}
+
+//replaces geo locations.
+function reloadGeoLocations() {
+	selectedLocation = null;
+	clearGeoLocations();
+	loadGeoLocations();
+	checkVicinityStatus();
+	$("select").selectmenu("refresh", true);
 }
 
 /* Notes

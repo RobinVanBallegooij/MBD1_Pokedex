@@ -82,3 +82,24 @@ function getStoredGeoLocations() {
 
 	return geoLocations;
 }
+
+function removeGeoLocation(location) {
+	console.log(location);
+	geoLocations = getStoredGeoLocations();
+
+	//remove location.
+	if (geoLocations !== null) {
+		var filteredGeoLocations = geoLocations.filter(function(element) {
+			return ((element.longitude !== location.longitude) && (element.latitude !== location.latitude));
+		});
+
+		//store filtered geo location list.
+		storeGeoLocations(filteredGeoLocations);
+	}
+
+	console.log(getStoredGeoLocations());
+}
+
+function clearGeoLocations() {
+	window.localStorage.removeItem("geoLocations");
+}

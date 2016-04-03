@@ -35,12 +35,11 @@
   <gap:plugin name="org.apache.cordova.globalization"/>
   <gap:plugin name="org.apache.cordova.inappbrowser"/>
   <gap:plugin name="org.apache.cordova.media"/>
+  <gap:plugin name="org.apache.cordova.network-information"/>
   -->
   <gap:plugin name="org.apache.cordova.geolocation"/>
-  <gap:plugin name="org.apache.cordova.network-information"/>
   <gap:plugin name="org.apache.cordova.splashscreen"/>
   
-
   <!-- Icons and splashscreens -->
   <icon src="pokedex_icon.png"/>
   <gap:splash src="pikachu_splash.png"/>
