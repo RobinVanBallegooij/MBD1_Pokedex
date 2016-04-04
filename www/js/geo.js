@@ -106,7 +106,7 @@ function generateRandomGeoLocations() {
 	var testlocation = {longitude:5.4359651, latitude:51.8060321};
 	var testlocation2 = {longitude:5.4338097, latitude:51.8048015};
 	var testlocation3 = {longitude:5.4340886, latitude:51.8075944};
-	var testlocation4 = {longitude:5.4385840, latitude:51.8072097};
+	var testlocation4 = {longitude:5.4504072, latitude:51.8076939};
 	var testlocation5 = {longitude:5.4397642, latitude:51.8047551};
 
 	geoLocations.push(avansPosition);
