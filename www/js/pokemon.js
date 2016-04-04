@@ -26,11 +26,9 @@ function setup() {
 	$(document).on("pageshow", function(event, data) {
 		var page = data.toPage[0].id;
 
+		console.log("PAGE: " + page);
+
 		switch (page) {
-			case 'compendium' : 	//if (compendiumIsLoading) {
-										showLoader("Loading..");
-									//}
-									break;
 			case 'details' : 		showLoader("Loading..");
 									break;
 		}
@@ -63,6 +61,23 @@ function setup() {
     	$.mobile.activePage.find('#menuPanel').panel("open");    
 	});
 
+	//scroll stop listener for endless scrolling.
+	$(document).on("scrollstop", function (e) {
+    	var activePage = $.mobile.pageContainer.pagecontainer("getActivePage"),
+    	    screenHeight = $.mobile.getScreenHeight(),
+    	    contentHeight = $(".ui-content", activePage).outerHeight(),
+    	    header = $(".ui-header", activePage).outerHeight() - 1,
+    	    scrolled = $(window).scrollTop(),
+    	    footer = $(".ui-footer", activePage).outerHeight() - 1,
+    	    scrollEnd = contentHeight - screenHeight + header + footer;
+    	if (activePage[0].id == "compendium" && scrolled >= scrollEnd) {
+    		//load next pokemon
+    	    if (!isLoadingNext) {
+    	    	loadNext(activePage);
+    	    }     
+    	}
+	});
+
 	//initialization
 	loadCompendium();
 	loadOwnedPokemon();
@@ -73,7 +88,8 @@ var TOTAL_POKEMON_COUNT = 721;
 var pokemon_number = 0;
 var next = '';
 
-var compendiumIsLoading = false;
+var isLoadingCompendium = false;
+var isLoadingNext = false;
 
 // /INIT
 
@@ -81,8 +97,8 @@ var compendiumIsLoading = false;
 function loadCompendium() {
 	var listContent = '';
 
-	console.log("LOADING COMPENDIUM");
-	compendiumIsLoading = true;
+	isLoadingCompendium = true;
+	showLoader("Loading..");
 
 	$.getJSON('http://pokeapi.co/api/v2/pokemon', function(data) {
 
@@ -96,9 +112,8 @@ function loadCompendium() {
 		$('#compendiumListView').html(listContent);
 		$('#compendiumListView').listview("refresh");
 
-		// compendiumIsLoading = false;
-		// hideLoader();
-		console.log("DONE LOADING COMPENDIUM");
+		isLoadingCompendium = false;
+		hideLoader();
 
 	});
 };
@@ -107,6 +122,9 @@ function loadNext(page) {
 	var nextListContent = '';
 
 	if (next !== '') {
+		isLoadingNext = true;
+		showLoader("Loading more..");
+
 		$.getJSON(next, function(data) {
 			next = data.next;
 
@@ -118,31 +136,12 @@ function loadNext(page) {
 	
 				$("#compendiumListView", page).append(nextListContent).listview("refresh");
 			}
+
+			isLoadingNext = false;
+			hideLoader();
 		});
 	}
 };
-
-function addMore(page) {
-    showLoader("Loading more..");
-    setTimeout(function () {
-        loadNext(page); 
-       hideLoader();
-    }, 500);
-};
-
-$(document).on("scrollstop", function (e) {
-    var activePage = $.mobile.pageContainer.pagecontainer("getActivePage"),
-        screenHeight = $.mobile.getScreenHeight(),
-        contentHeight = $(".ui-content", activePage).outerHeight(),
-        header = $(".ui-header", activePage).outerHeight() - 1,
-        scrolled = $(window).scrollTop(),
-        footer = $(".ui-footer", activePage).outerHeight() - 1,
-        scrollEnd = contentHeight - screenHeight + header + footer;
-    if (activePage[0].id == "compendium" && scrolled >= scrollEnd) {
-        console.log("adding...");
-        addMore(activePage);
-    }
-});
 
 function loadPokemonDetails(event) {
 	event.preventDefault();
