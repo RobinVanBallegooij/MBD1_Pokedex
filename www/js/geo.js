@@ -320,7 +320,8 @@ function calculateRelativeAngle(targetBearing, compassHeading) {
 	return relativeAngle;
 }
 
-function calculateBearing(lat1,lng1,lat2,lng2) {
+//http://gis.stackexchange.com/questions/29239/calculate-bearing-between-two-decimal-gps-coordinates
+function calculateBearing(startLat, startLong, endLat, endLong) {
 	startLat = radians(startLat);
 	startLong = radians(startLong);
 	endLat = radians(endLat);
