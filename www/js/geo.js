@@ -27,6 +27,7 @@ function setupGeo() {
 
 			if (typeof location !== 'undefined') {
 				selectedLocation = location;
+				$("#route").prop("disabled", false);
 				console.log("Changed target");
 				checkVicinityStatus();
 			}
@@ -40,6 +41,9 @@ function setupGeo() {
 
 	//disable catch button initially.
 	$("#catch").prop("disabled", true);
+
+	//disable route button initially.
+	$("#route").prop("disabled", true);
 
 	//popup after close event.
 	$("#catchPopup").bind({
@@ -55,31 +59,17 @@ function setupGeo() {
 	});
 
 	//route
-	$("#route_button").on("click", function(event) {
+	$("#route").on("click", function(event) {
 		event.preventDefault();
 
-		avansPosition = {longitude:5.2866380, latitude:51.6885180};
-		var positionString = avansPosition.latitude + "," + avansPosition.longitude;	
-		var destination = "Target";
+		if (selectedLocation !== null) {
+			var positionString = selectedLocation.latitude + "," + selectedLocation.longitude;	
+			var destination = "Target";
+	
+			window.location.href = "http://maps.apple.com?daddr=" + positionString + "(" + destination + ")";
+		}	
+	});
 
-		var url = "";
-		window.location.href = "http://maps.apple.com?daddr=" + positionString + "(" + destination + ")";
-	})
-
-	updateRouteLink();
-}
-
-function updateRouteLink() {
-	console.log("route link");
-	//external route
-	avansPosition = {longitude:5.2866380, latitude:51.6885180};
-	var positionString = avansPosition.latitude + "," + avansPosition.longitude;	
-	var destination = "Target";
-
-	$("#route_link").attr("href", "http://maps.apple.com?daddr='" + positionString + "'");
-	$("#route_link").click();
-
-	//var avansPosition = {longitude:5.2866380, latitude:51.6885180};
 }
 
 //variables
@@ -240,6 +230,7 @@ function removeTargetLocation() {
 		if (selectedLocation !== null) {
 			removeGeoLocation(selectedLocation);
 			selectedLocation = null;
+			$("#route").prop("disabled", true);
 			checkVicinityStatus();
 			loadGeoLocations();
 		}
@@ -251,6 +242,7 @@ function removeTargetLocation() {
 //replaces geo locations.
 function reloadGeoLocations() {
 	selectedLocation = null;
+	$("#route").prop("disabled", true);
 	clearGeoLocations();
 	loadGeoLocations();
 	checkVicinityStatus();
