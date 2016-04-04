@@ -274,7 +274,10 @@ function updateCompass(heading) {
 		var bearing = calculateBearing(currentLocation.coords.latitude, currentLocation.coords.longitude, selectedLocation.latitude, selectedLocation.longitude);
 
 		var magneticHeading = heading.magneticHeading;
-		console.log(magneticHeading);
+		
+		//set data
+		$("compass_bearing").text(bearing);
+		$("compass_heading").text(magneticHeading);
 	
 		//rotate image.
 		if (bearing !== null) {
