@@ -102,30 +102,19 @@ var DECIMALS = 7;
 function generateRandomGeoLocations() {
 	var geoLocations = new Array();
 
-	//var avansPosition = {longitude:5.2866380, latitude:51.6885180};
+	var avansPosition = {longitude:5.2866380, latitude:51.6885180};
 	var testlocation = {longitude:5.4359651, latitude:51.8060321};
-	var testlocation2 = {longitude:5.4338097, latitude:51.8048015};		//227.27
-	var testlocation3 = {longitude:5.4340886, latitude:51.8075944};		//323.91
-	var testlocation4 = {longitude:5.4405152, latitude:51.8109708};		//29.72
-	var testlocation5 = {longitude:5.44421, latitude:51.80718};			//77.22
-	var testlocation6 = {longitude:5.43651, latitude:51.80554};			//143.75
 
-
-	//geoLocations.push(avansPosition);
+	geoLocations.push(avansPosition);
 	geoLocations.push(testlocation);
-	geoLocations.push(testlocation2);
-	geoLocations.push(testlocation3);
-	geoLocations.push(testlocation4);
-	geoLocations.push(testlocation5);
-	geoLocations.push(testlocation6);
 
-	// for (i = 0; i < NUMBER_OF_LOCATIONS; i++) {
-	// 	var randomLongitude = (Math.random() * (MAX_LONGITUDE - MIN_LONGITUDE) + MIN_LONGITUDE);
-	// 	var randomLatitude = (Math.random() * (MAX_LATITUDE - MIN_LATITUDE) + MIN_LATITUDE);
+	for (i = 0; i < NUMBER_OF_LOCATIONS; i++) {
+		var randomLongitude = (Math.random() * (MAX_LONGITUDE - MIN_LONGITUDE) + MIN_LONGITUDE);
+		var randomLatitude = (Math.random() * (MAX_LATITUDE - MIN_LATITUDE) + MIN_LATITUDE);
 
-	// 	var position = {longitude:randomLongitude, latitude:randomLatitude};
-	// 	geoLocations.push(position);
-	// }
+		var position = {longitude:randomLongitude, latitude:randomLatitude};
+		geoLocations.push(position);
+	}
 
 	return geoLocations;
 
