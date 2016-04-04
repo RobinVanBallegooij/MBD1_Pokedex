@@ -63,7 +63,7 @@ function setupGeo() {
 		var destination = "Target";
 
 		var url = "";
-		window.location.href = "http://maps.apple.com?daddr='" + positionString + "'('" + destination + "')";
+		window.location.href = "http://maps.apple.com?daddr=" + positionString + "(" + destination + ")";
 	})
 
 	updateRouteLink();
