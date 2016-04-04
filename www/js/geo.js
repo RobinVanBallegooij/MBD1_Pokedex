@@ -6,7 +6,7 @@ function setupGeo() {
 	var currentPosition = navigator.geolocation.getCurrentPosition(updateLocationData);
 	var watchId = navigator.geolocation.watchPosition(updateLocationData);
 
-	activateCompass();
+	//activateCompass();
 
 	loadGeoLocations();
 
@@ -54,6 +54,32 @@ function setupGeo() {
 		reloadGeoLocations();
 	});
 
+	//route
+	$("#route_button").on("click", function(event) {
+		event.preventDefault();
+
+		avansPosition = {longitude:5.2866380, latitude:51.6885180};
+		var positionString = avansPosition.latitude + "," + avansPosition.longitude;	
+		var destination = "Target";
+
+		var url = "";
+		window.location.href = "http://maps.apple.com?daddr='" + positionString + "'('" + destination + "')";
+	})
+
+	updateRouteLink();
+}
+
+function updateRouteLink() {
+	console.log("route link");
+	//external route
+	avansPosition = {longitude:5.2866380, latitude:51.6885180};
+	var positionString = avansPosition.latitude + "," + avansPosition.longitude;	
+	var destination = "Target";
+
+	$("#route_link").attr("href", "http://maps.apple.com?daddr='" + positionString + "'('" + destination + "')");
+	$("#route_link").click();
+
+	//var avansPosition = {longitude:5.2866380, latitude:51.6885180};
 }
 
 //variables
