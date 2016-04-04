@@ -289,7 +289,13 @@ function updateCompass(heading) {
 
 		var distance = getDistanceFromLatLonInKm(currentLocation.coords.latitude, currentLocation.coords.longitude, selectedLocation.latitude, selectedLocation.longitude);
 		
-		$("#distance").text("Distance: " + distance + " meter");
+		//distance smaller than 1km -> show meters.
+		if (distance < 1) {
+			$("#distance").text("Distance: " + Math.round(distance, 3) / 1000 + " M");
+		} else {
+			$("#distance").text("Distance: " + Math.round(distance, 3) + " KM");
+		}
+		
 	
 		//rotate image.
 		if (bearing !== null) {
