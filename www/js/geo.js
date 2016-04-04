@@ -291,7 +291,7 @@ function updateCompass(heading) {
 		
 		//distance smaller than 1km -> show meters.
 		if (distance < 1) {
-			$("#distance").text("Distance: " + Math.round(distance, 3) / 1000 + " M");
+			$("#distance").text("Distance: " + Math.round(distance, 3) * 1000 + " M");
 		} else {
 			$("#distance").text("Distance: " + Math.round(distance, 3) + " KM");
 		}
