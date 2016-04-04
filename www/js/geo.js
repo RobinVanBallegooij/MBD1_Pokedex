@@ -16,7 +16,7 @@ function setupGeo() {
 	var currentPosition = navigator.geolocation.getCurrentPosition(updateLocationData);
 	var watchId = navigator.geolocation.watchPosition(updateLocationData);
 
-	//activateCompass();
+	activateCompass();
 
 	loadGeoLocations();
 
