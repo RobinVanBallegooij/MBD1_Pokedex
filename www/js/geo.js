@@ -3,10 +3,20 @@ document.addEventListener("deviceready", setupGeo, false);
 function setupGeo() {
 	console.log("SETUP GEO");
 
+	//modify Math.round function to take decimals.
+	Math.round = (function() {
+  		var originalRound = Math.round;
+  		return function(number, precision) {
+    		precision = Math.abs(parseInt(precision)) || 0;
+    		var multiplier = Math.pow(10, precision);
+    		return (originalRound(number * multiplier) / multiplier);
+  		};
+	})();
+
 	var currentPosition = navigator.geolocation.getCurrentPosition(updateLocationData);
 	var watchId = navigator.geolocation.watchPosition(updateLocationData);
 
-	//activateCompass();
+	activateCompass();
 
 	loadGeoLocations();
 
@@ -85,6 +95,7 @@ var MIN_LONGITUDE = 5.2547515;
 var MAX_LONGITUDE = 5.3489936;
 var MIN_LATITUDE = 51.6824922;
 var MAX_LATITUDE = 51.7204729;
+var DECIMALS = 7;
 
 
 
@@ -115,8 +126,8 @@ function updateLocationData(position) {
 	var longitude = position.coords.longitude;
 	var latitude = position.coords.latitude;
 	
-	$("#geo_longitude").html("longitude: " + longitude);
-	$("#geo_latitude").html("latitude: " + latitude);
+	$("#geo_longitude").html("longitude: " + Math.round(longitude, DECIMALS));
+	$("#geo_latitude").html("latitude: " + Math.round(latitude, DECIMALS));
 
 	checkVicinityStatus();
 		
@@ -138,7 +149,7 @@ function loadGeoLocations() {
 
 	$.each(storedGeoLocations, function(index, value) {
 		var location = storedGeoLocations[index];
-		geoLocationContent += '<option value="standard" class="geoLocationItem" id="' + index + '">' + location.longitude + ', ' + location.latitude + '</option>';
+		geoLocationContent += '<option value="standard" class="geoLocationItem" id="' + index + '">' + Math.round(location.longitude, DECIMALS) + ', ' + Math.round(location.latitude, DECIMALS) + '</option>';
 	});
 
 	$(".geo-location-select").html(geoLocationContent);
