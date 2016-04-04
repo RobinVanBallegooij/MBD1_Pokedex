@@ -108,7 +108,7 @@ function generateRandomGeoLocations() {
 	var testlocation3 = {longitude:5.4340886, latitude:51.8075944};		//323.91
 	var testlocation4 = {longitude:5.4405152, latitude:51.8109708};		//29.72
 	var testlocation5 = {longitude:5.44421, latitude:51.80718};			//77.22
-	var testlocation5 = {longitude:5.43651, latitude:51.80554};			//143.75
+	var testlocation6 = {longitude:5.43651, latitude:51.80554};			//143.75
 
 
 	//geoLocations.push(avansPosition);
@@ -117,6 +117,7 @@ function generateRandomGeoLocations() {
 	geoLocations.push(testlocation3);
 	geoLocations.push(testlocation4);
 	geoLocations.push(testlocation5);
+	geoLocations.push(testlocation6);
 
 	// for (i = 0; i < NUMBER_OF_LOCATIONS; i++) {
 	// 	var randomLongitude = (Math.random() * (MAX_LONGITUDE - MIN_LONGITUDE) + MIN_LONGITUDE);
@@ -320,14 +321,31 @@ function calculateRelativeAngle(targetBearing, compassHeading) {
 }
 
 function calculateBearing(lat1,lng1,lat2,lng2) {
-        var dLon = (lng2-lng1);
-        var y = Math.sin(dLon) * Math.cos(lat2);
-        var x = Math.cos(lat1)*Math.sin(lat2) - Math.sin(lat1)*Math.cos(lat2)*Math.cos(dLon);
-        var brng = toDegrees(Math.atan2(y, x));
-        return 360 - ((brng + 360) % 360);
+	startLat = radians(startLat);
+	startLong = radians(startLong);
+	endLat = radians(endLat);
+	endLong = radians(endLong);
+	
+	var dLong = endLong - startLong;
+	
+	var dPhi = Math.log(Math.tan(endLat/2.0+Math.PI/4.0)/Math.tan(startLat/2.0+Math.PI/4.0));
+	if (Math.abs(dLong) > Math.PI){
+		if (dLong > 0.0) {
+		   dLong = -(2.0 * Math.PI - dLong);
+		}
+		else {
+		   dLong = (2.0 * Math.PI + dLong);
+		}
+	}
+	
+	return (degrees(Math.atan2(dLong, dPhi)) + 360.0) % 360.0;
 }
 
-function toDegrees(rad) {
+function radians(degrees) {
+	return degrees * (Math.PI / 180);
+}
+
+function degrees(rad) {
     return rad * (180 / Math.PI);
 }
 
