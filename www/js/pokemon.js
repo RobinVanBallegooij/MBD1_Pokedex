@@ -99,6 +99,7 @@ function setup() {
 
 //global variables
 var TOTAL_POKEMON_COUNT = 721;
+var POKEMON_LIMIT = 60;
 var pokemon_number = 0;
 var next = '';
 
@@ -116,7 +117,7 @@ function loadCompendium() {
 	isLoadingCompendium = true;
 	showLoader("Loading..");
 
-	$.getJSON('http://pokeapi.co/api/v2/pokemon', function(data) {
+	$.getJSON('http://pokeapi.co/api/v2/pokemon/?limit=' + POKEMON_LIMIT + '', function(data) {
 
 		next = data.next;
 
@@ -137,26 +138,34 @@ function loadCompendium() {
 function loadNext(page) {
 	var nextListContent = '';
 
-	if (next !== '') {
-		isLoadingNext = true;
-		showLoader("Loading more..");
+	if (pokemon_number < TOTAL_POKEMON_COUNT) {
+		if (next !== '') {
+			isLoadingNext = true;
+			showLoader("Loading more..");
 
-		$.getJSON(next, function(data) {
-			next = data.next;
-
-			if (next !== null) {
-				$.each(data.results, function() {
-					pokemon_number++;
-					nextListContent += '<li><a href="#" class="pokemonListItem" rel="' + this.url + '">#' + pokemon_number + ' ' + this.name + '</a></li>';
-				});
-	
-				$("#compendiumListView", page).append(nextListContent).listview("refresh");
+			//check for last pokemon.
+			if (pokemon_number === TOTAL_POKEMON_COUNT - 1) {
+				next = "http://pokeapi.co/api/v2/pokemon/?limit=1&offset=" + (TOTAL_POKEMON_COUNT - 1);
 			}
-
-			isLoadingNext = false;
-			hideLoader();
-		});
+	
+			$.getJSON(next, function(data) {
+				next = data.next;
+	
+				if (next !== null) {
+					$.each(data.results, function() {
+						pokemon_number++;
+						nextListContent += '<li><a href="#" class="pokemonListItem" rel="' + this.url + '">#' + pokemon_number + ' ' + this.name + '</a></li>';
+					});
+		
+					$("#compendiumListView", page).append(nextListContent).listview("refresh");
+				}
+	
+				isLoadingNext = false;
+				hideLoader();
+			});
+		}
 	}
+
 };
 
 function loadPokemonDetails(event) {
