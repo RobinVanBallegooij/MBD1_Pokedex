@@ -276,8 +276,8 @@ function updateCompass(heading) {
 		var magneticHeading = heading.magneticHeading;
 		
 		//set data
-		$("compass_bearing").text(bearing);
-		$("compass_heading").text(magneticHeading);
+		$("#compass_bearing").text(bearing);
+		$("#compass_heading").text(magneticHeading);
 	
 		//rotate image.
 		if (bearing !== null) {
