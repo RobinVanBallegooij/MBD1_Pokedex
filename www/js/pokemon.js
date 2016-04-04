@@ -51,6 +51,20 @@ function setup() {
 
 	$('#ownedPokemonListView').on('click', 'li a.pokemonListItem', loadPokemonDetails);
 
+	//open online pokedex in browser.
+	$('#details_browser').on('click', function() {
+		var id = $('#details_browser').attr('value');
+
+		if (id < TOTAL_POKEMON_COUNT) {
+			window.open(pokedexUrl + id, '_system');
+		} else {
+			window.open(pokedexUrl, '_system');
+		}
+		
+	})
+
+	$('#details_browser').hide();
+
 	//menu panel
     $(document).on('click', '#open_menu', function(){   
        	$.mobile.activePage.find('#menuPanel').panel("open");       
@@ -90,6 +104,8 @@ var next = '';
 
 var isLoadingCompendium = false;
 var isLoadingNext = false;
+
+var pokedexUrl = "http://www.pokemon.com/us/pokedex/";
 
 // /INIT
 
@@ -198,6 +214,8 @@ function loadPokemonDetails(event) {
 		}
 
 		hideLoader();
+		$('#details_browser').attr('value', pokemonId);
+		$('#details_browser').show();
 
 	});
 
@@ -212,6 +230,9 @@ function clearPokemonDetails() {
 
 	$('#details_types').empty();
 	$('#details_abilities').empty();
+
+	$('#details_browser').attr('value', '');
+	$('#details_browser').hide();
 }
 
 // OWNED POKEMON
