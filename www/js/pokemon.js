@@ -27,8 +27,12 @@ function setup() {
 		var page = data.toPage[0].id;
 
 		switch (page) {
-			case 'details' : 	showLoader("Loading..");
-								break;
+			case 'compendium' : 	//if (compendiumIsLoading) {
+										showLoader("Loading..");
+									//}
+									break;
+			case 'details' : 		showLoader("Loading..");
+									break;
 		}
 
 	});
@@ -69,11 +73,16 @@ var TOTAL_POKEMON_COUNT = 721;
 var pokemon_number = 0;
 var next = '';
 
+var compendiumIsLoading = false;
+
 // /INIT
 
 //functions
 function loadCompendium() {
 	var listContent = '';
+
+	console.log("LOADING COMPENDIUM");
+	compendiumIsLoading = true;
 
 	$.getJSON('http://pokeapi.co/api/v2/pokemon', function(data) {
 
@@ -86,6 +95,10 @@ function loadCompendium() {
 
 		$('#compendiumListView').html(listContent);
 		$('#compendiumListView').listview("refresh");
+
+		// compendiumIsLoading = false;
+		// hideLoader();
+		console.log("DONE LOADING COMPENDIUM");
 
 	});
 };
