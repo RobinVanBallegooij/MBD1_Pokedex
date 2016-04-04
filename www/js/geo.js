@@ -16,7 +16,7 @@ function setupGeo() {
 	var currentPosition = navigator.geolocation.getCurrentPosition(updateLocationData);
 	var watchId = navigator.geolocation.watchPosition(updateLocationData);
 
-	activateCompass();
+	//activateCompass();
 
 	loadGeoLocations();
 
@@ -218,6 +218,7 @@ function catchPokemon() {
 		//check if user owns pokemon. If not, add it.
 		if (!ownsPokemonWithId(randomPokemonId)) {
 			storePokemonWithId(randomPokemonId);
+			loadOwnedPokemon();
 		}
 
 		removeTargetLocation();

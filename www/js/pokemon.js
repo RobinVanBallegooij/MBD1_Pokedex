@@ -13,15 +13,6 @@ function setup() {
 
     });
 
-    //page before show event
-	$(document).on("pagebeforeshow", function(event, data) {
-		var page = data.toPage[0].id;
-
-		if (page === "ownedPokemon") {
-			loadOwnedPokemon();
-		}
-	});
-
 	//page show event
 	$(document).on("pageshow", function(event, data) {
 		var page = data.toPage[0].id;
@@ -29,6 +20,14 @@ function setup() {
 		console.log("PAGE: " + page);
 
 		switch (page) {
+			case 'compendium' : 	if (isLoadingCompendium) {
+										showLoader("Loading..");
+									} 
+									break;
+			case 'ownedPokemon' : 	if (isLoadingOwnedPokemon) {
+										showLoader("Loading..");
+									} 
+									break;
 			case 'details' : 		showLoader("Loading..");
 									break;
 		}
@@ -105,6 +104,7 @@ var next = '';
 
 var isLoadingCompendium = false;
 var isLoadingNext = false;
+var isLoadingOwnedPokemon = false;
 
 var pokedexUrl = "http://www.pokemon.com/us/pokedex/";
 
@@ -254,29 +254,43 @@ function loadOwnedPokemon() {
 	var ownedPokemon = getOwnedPokemon();
 
 	if (ownedPokemon !== null) {
-
-		$.each(ownedPokemon, function(index, value) {
-
-			//loop over owned pokemon and get info for each pokemon through the API.
-			var url = "http://pokeapi.co/api/v2/pokemon/" + ownedPokemon[index];
-
-			$.getJSON(url, function(data) {
-	
-				var id = data.id;
-				var name = data.name;
-	
-				listContent += '<li><a href="#" class="pokemonListItem" rel="' + url + '">#' + id + ' ' + name + '</a></li>';	
-	
-				//console.log(listContent);
-				$('#ownedPokemonListView').html(listContent);
-				$('#ownedPokemonListView').listview("refresh");
-
-			});
-
-		});
+		isLoadingOwnedPokemon = true;
+		nextOwnedPokemon(0);
 	} else {
 		addInitialPokemon();
 	}
+
+	function nextOwnedPokemon(index) {
+		console.log("next pokemon");
+		var url = "http://pokeapi.co/api/v2/pokemon/" + ownedPokemon[index];
+
+		$.getJSON(url, function(data) {
+
+			var id = data.id;
+			var name = data.name;
+
+			listContent += '<li><a href="#" class="pokemonListItem" rel="' + url + '">#' + id + ' ' + name + '</a></li>';
+
+			//check if pokemon is the last one. If it is update list. If not, get next pokemon.
+			index++;
+			console.log(index);
+			if (index < ownedPokemon.length ) {
+				nextOwnedPokemon(index);
+			} else {
+				updateList();
+			}
+
+		});
+	}
+
+	function updateList() {
+		$('#ownedPokemonListView').html(listContent);
+		$('#ownedPokemonListView').listview("refresh");
+
+		isLoadingOwnedPokemon = false;
+		hideLoader();
+	}
+
 }
 
 /* NOTES
