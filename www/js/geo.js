@@ -76,7 +76,7 @@ function updateRouteLink() {
 	var positionString = avansPosition.latitude + "," + avansPosition.longitude;	
 	var destination = "Target";
 
-	$("#route_link").attr("href", "http://maps.apple.com?daddr='" + positionString + "'('" + destination + "')");
+	$("#route_link").attr("href", "http://maps.apple.com?daddr='" + positionString + "'");
 	$("#route_link").click();
 
 	//var avansPosition = {longitude:5.2866380, latitude:51.6885180};
