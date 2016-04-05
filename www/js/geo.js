@@ -103,6 +103,8 @@ var DECIMALS = 7;
 var geoWatchId = null;
 var compassWatchId = null;
 
+var catchingPokemonMessage = "Catching pokemon";
+
 //lifecycle
 function onPause() {
 	deactivateGeo();
@@ -221,7 +223,7 @@ function catchPokemon() {
 
 	if (checkVicinityStatus()) {
 
-		showLoader("Catching pokemon");
+		showLoader(catchingPokemonMessage);
 
 		var randomPokemonId = Math.floor(Math.random() * TOTAL_POKEMON_COUNT + 1);
 

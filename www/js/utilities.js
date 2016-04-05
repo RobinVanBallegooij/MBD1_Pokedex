@@ -46,6 +46,11 @@ function setEnglish() {
 	$("span#label_settings_page").text("Settings");
 	$("span#label_settings_language").text("Language: ");
 	$("span#label_save_settings").text("Save");
+
+	//loading messages
+	loadingMessage = "Loading..";
+	loadingMoreMessage = "Loading more..";
+	catchingPokemonMessage = "Catching pokemon";
 	
 }
 
@@ -85,4 +90,9 @@ function setDutch() {
 	$("span#label_settings_page").text("Instellingen");
 	$("span#label_settings_language").text("Taal: ");
 	$("span#label_save_settings").text("Opslaan");
+
+	//loading messages
+	loadingMessage = "Laden..";
+	loadingMoreMessage = "Meer laden..";
+	catchingPokemonMessage = "Pokemon vangen";
 }

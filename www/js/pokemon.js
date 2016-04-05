@@ -25,14 +25,14 @@ function setup() {
 
 		switch (page) {
 			case 'compendium' : 	if (isLoadingCompendium) {
-										showLoader("Loading..");
+										showLoader(loadingMessage);
 									} 
 									break;
 			case 'ownedPokemon' : 	if (isLoadingOwnedPokemon) {
-										showLoader("Loading..");
+										showLoader(loadingMessage);
 									} 
 									break;
-			case 'details' : 		showLoader("Loading..");
+			case 'details' : 		showLoader(loadingMessage);
 									break;
 		}
 
@@ -112,6 +112,8 @@ var next = '';
 var isLoadingCompendium = false;
 var isLoadingNext = false;
 var isLoadingOwnedPokemon = false;
+var loadingMessage = "Loading..";
+var loadingMoreMessage = "Loading more..";
 
 var language_english = "english";
 var language_dutch = "dutch";
@@ -125,7 +127,7 @@ function loadCompendium() {
 	var listContent = '';
 
 	isLoadingCompendium = true;
-	showLoader("Loading..");
+	showLoader(loadingMessage);
 
 	$.getJSON('http://pokeapi.co/api/v2/pokemon/?limit=' + POKEMON_LIMIT + '', function(data) {
 
@@ -151,7 +153,7 @@ function loadNext(page) {
 	if (pokemon_number < TOTAL_POKEMON_COUNT) {
 		if (next !== '') {
 			isLoadingNext = true;
-			showLoader("Loading more..");
+			showLoader(loadingMoreMessage);
 
 			//check for last pokemon.
 			if (pokemon_number === TOTAL_POKEMON_COUNT - 1) {
