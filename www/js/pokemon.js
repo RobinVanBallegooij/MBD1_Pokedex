@@ -347,6 +347,7 @@ function loadInitialLanguage() {
 		}
 	} else {
 		saveLanguage(language_english);
+		setEnglish();
 		$("input#radio-choice-0a").prop("checked", true);
 	}
 }
