@@ -51,6 +51,11 @@ function setEnglish() {
 	loadingMessage = "Loading..";
 	loadingMoreMessage = "Loading more..";
 	catchingPokemonMessage = "Catching pokemon";
+
+	//status messages
+	statusSelectTarget = "Select a target";
+	statusCanCatch = "You can catch the pokemon";
+	statusTooFar = "Too far away";
 	
 }
 
@@ -95,4 +100,9 @@ function setDutch() {
 	loadingMessage = "Laden..";
 	loadingMoreMessage = "Meer laden..";
 	catchingPokemonMessage = "Pokemon vangen";
+
+	//status messages
+	statusSelectTarget = "Selecteer een doelwit";
+	statusCanCatch = "Je kunt de pokemon vangen";
+	statusTooFar = "Te ver weg";
 }

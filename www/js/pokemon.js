@@ -305,11 +305,11 @@ function loadOwnedPokemon() {
 	}
 
 	function updateList() {
-		$('#ownedPokemonListView').html(listContent);
-		$('#ownedPokemonListView').listview("refresh");
-
 		isLoadingOwnedPokemon = false;
 		hideLoader();
+
+		$('#ownedPokemonListView').html(listContent);
+		$('#ownedPokemonListView').listview("refresh");
 	}
 
 }
