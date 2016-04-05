@@ -136,9 +136,16 @@
                     </select>
                 </div>
                 <div>
-                    <h4>Status:</h4>
+                    <div>
+                        <h4>Status:<a href="#popupCompassInfo" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext right-img" title="Info">Info</a></h4>    
+                    </div>
                     <div id="geo_hunt_status" class="margin-bottom">Select a target</div>
-                    <img src="img/compass_arrow.png" id="compass" class="center-img padding-bottom" alt="Compass" width="100" height="100" />
+                    <div>
+                        <img src="img/compass_arrow.png" id="compass" class="center-img padding-bottom" alt="Compass" width="100" height="100" />
+                    </div>
+                    <div data-role="popup" id="popupCompassInfo" class="ui-content" data-theme="a" style="max-width:350px;">
+                        <p>To use the compass, keep your device in portrait mode</p>
+                    </div>
                     <div id="distance"></div>
                     <button id="catch">Catch</button>
                     <button id="route">Route</button>
