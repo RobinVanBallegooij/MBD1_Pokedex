@@ -13,8 +13,7 @@ function setupGeo() {
   		};
 	})();
 
-	var currentPosition = navigator.geolocation.getCurrentPosition(updateLocationData);
-	var watchId = navigator.geolocation.watchPosition(updateLocationData);
+	activateGeo();
 
 	activateCompass();
 
@@ -43,6 +42,10 @@ function setupGeo() {
 			}
 		}
 	});
+
+	//lifecycle
+	document.addEventListener("pause", onPause, false);
+	document.addEventListener("resume", onResume, false);
 
 	//catch button
 	$("#catch").on("click", function() {
@@ -97,7 +100,31 @@ var MIN_LATITUDE = 51.6824922;
 var MAX_LATITUDE = 51.7204729;
 var DECIMALS = 7;
 
+var geoWatchId = null;
+var compassWatchId = null;
 
+//lifecycle
+function onPause() {
+	deactivateGeo();
+	deactivateCompass();
+}
+
+function onResume() {
+	activateGeo();
+	activateCompass();
+}
+
+function activateGeo() {
+	navigator.geolocation.getCurrentPosition(updateLocationData);
+	geoWatchId = navigator.geolocation.watchPosition(updateLocationData);
+}
+
+function deactivateGeo() {
+	if (geoWatchId !== null) {
+		navigator.geolocation.clearWatch(geoWatchId);
+	}
+	geoWatchId = null;
+}
 
 function generateRandomGeoLocations() {
 	var geoLocations = new Array();
@@ -267,6 +294,13 @@ function reloadGeoLocations() {
 function activateCompass() {
 	navigator.compass.getCurrentHeading(updateCompass);
 	navigator.compass.watchHeading(updateCompass);
+}
+
+function deactivateCompass() {
+	if (compassWatchId !== null) {
+		navigator.compass.clearWatch(compassWatchId);
+	}
+	compassWatchId = null;
 }
 
 function updateCompass(heading) {
