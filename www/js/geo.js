@@ -207,8 +207,7 @@ function checkVicinityStatus() {
 				return true;
 			} else {
 				$("#label_geo_hunt_status").removeClass().addClass('text-gray');
-				$("#geo_hunt_status").text("Too far away");
-			label_geo_hunt_status
+				$("#label_geo_hunt_status").text("Too far away");
 		}	
 	} else {
 		$("#label_geo_hunt_status").removeClass();
