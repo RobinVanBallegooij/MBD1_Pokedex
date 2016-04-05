@@ -98,6 +98,9 @@ var geoWatchId = null;
 var compassWatchId = null;
 
 var catchingPokemonMessage = "Catching pokemon";
+var statusSelectTarget = "Select a target";
+var statusCanCatch = "You can catch the pokemon";
+var statusTooFar = "Too far away";
 
 //lifecycle
 function onPause() {
@@ -194,18 +197,18 @@ function checkVicinityStatus() {
 			//user is within margin and can catch the pokemon.
 			if ((Math.abs(currentLongitude - targetLongitude) < margin_longitude) && (Math.abs(currentLatitude - targetLatitude) < margin_latitude)) {
 				$("#label_geo_hunt_status").removeClass().addClass('text-lightgreen');
-				$("#label_geo_hunt_status").text("You can catch the pokemon");
+				$("#label_geo_hunt_status").text(statusCanCatch);
 				//enable catch button.
 				$("#catch").prop("disabled", false);
 				return true;
 			} else {
 				$("#label_geo_hunt_status").removeClass().addClass('text-gray');
-				$("#label_geo_hunt_status").text("Too far away");
+				$("#label_geo_hunt_status").text(statusTooFar);
 			}
 		}	
 	} else {
 		$("#label_geo_hunt_status").removeClass();
-		$("#label_geo_hunt_status").text("Select a target");
+		$("#label_geo_hunt_status").text(statusSelectTarget);
 	}
 	//disable catch button.
 	$("#catch").prop("disabled", true);
