@@ -166,3 +166,7 @@ h1 {
 .padding-bottom {
     padding-bottom: 15px;
 }
+
+.popup-max-size {
+     max-width: 350px;
+}

@@ -13,6 +13,8 @@ function setupGeo() {
   		};
 	})();
 
+	$("span#label_my_pokemon").text("mijn pokemon");
+
 	activateGeo();
 
 	activateCompass();
@@ -154,8 +156,8 @@ function updateLocationData(position) {
 	var longitude = position.coords.longitude;
 	var latitude = position.coords.latitude;
 	
-	$("#geo_longitude").html("longitude: " + Math.round(longitude, DECIMALS));
-	$("#geo_latitude").html("latitude: " + Math.round(latitude, DECIMALS));
+	$("#geo_longitude").html("" + Math.round(longitude, DECIMALS));
+	$("#geo_latitude").html("" + Math.round(latitude, DECIMALS));
 
 	checkVicinityStatus();
 		
@@ -198,20 +200,19 @@ function checkVicinityStatus() {
 			//check if user is close and set status accordingly.
 			//user is within margin and can catch the pokemon.
 			if ((Math.abs(currentLongitude - targetLongitude) < margin_longitude) && (Math.abs(currentLatitude - targetLatitude) < margin_latitude)) {
-				$("#geo_hunt_status").removeClass().addClass('margin-bottom text-lightgreen');
-				$("#geo_hunt_status").text("You can catch the pokemon");
+				$("#label_geo_hunt_status").removeClass().addClass('text-lightgreen');
+				$("#label_geo_hunt_status").text("You can catch the pokemon");
 				//enable catch button.
 				$("#catch").prop("disabled", false);
 				return true;
 			} else {
-				$("#geo_hunt_status").removeClass().addClass('margin-bottom text-gray');
+				$("#label_geo_hunt_status").removeClass().addClass('text-gray');
 				$("#geo_hunt_status").text("Too far away");
-			}
-
+			label_geo_hunt_status
 		}	
 	} else {
-		$("#geo_hunt_status").removeClass().addClass('margin-bottom');
-		$("#geo_hunt_status").text("Select a target");
+		$("#label_geo_hunt_status").removeClass();
+		$("#label_geo_hunt_status").text("Select a target");
 	}
 	//disable catch button.
 	$("#catch").prop("disabled", true);

@@ -5,6 +5,8 @@ document.addEventListener("deviceready", setup, false);
 function setup() {
 	console.log("setup");
 
+	setEnglish();
+
 	//LIFECYCLE EVENTS
 
 	//page create event
@@ -261,7 +263,6 @@ function loadOwnedPokemon() {
 	}
 
 	function nextOwnedPokemon(index) {
-		console.log("next pokemon");
 		var url = "http://pokeapi.co/api/v2/pokemon/" + ownedPokemon[index];
 
 		$.getJSON(url, function(data) {
@@ -273,7 +274,6 @@ function loadOwnedPokemon() {
 
 			//check if pokemon is the last one. If it is update list. If not, get next pokemon.
 			index++;
-			console.log(index);
 			if (index < ownedPokemon.length ) {
 				nextOwnedPokemon(index);
 			} else {
