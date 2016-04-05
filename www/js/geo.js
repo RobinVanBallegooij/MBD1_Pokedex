@@ -1,7 +1,6 @@
 document.addEventListener("deviceready", setupGeo, false);
 
 function setupGeo() {
-	console.log("SETUP GEO");
 
 	//modify Math.round function to take decimals.
 	Math.round = (function() {
@@ -22,8 +21,6 @@ function setupGeo() {
 	//select hunt target
 	$('.geo-location-select').change(function() {
 
-		console.log("changed");
-
 		//get selected geo location
 		var index = $('option:selected', this).attr('id');
 		
@@ -32,12 +29,10 @@ function setupGeo() {
 
 		if (geoLocations !== null) {
 			var location = geoLocations[index];
-			console.log(location);
 
 			if (typeof location !== 'undefined') {
 				selectedLocation = location;
 				$("#route").prop("disabled", false);
-				console.log("Changed target");
 				checkVicinityStatus();
 			}
 		}
@@ -67,7 +62,6 @@ function setupGeo() {
 
 	//reload geo locations
 	$("#new_geo_locations").on("click", function() {
-		console.log("load new locations");
 		reloadGeoLocations();
 	});
 
@@ -183,7 +177,6 @@ function loadGeoLocations() {
 	});
 
 	$(".geo-location-select").html(geoLocationContent);
-	console.log("geolocations loaded");
 }
 
 function checkVicinityStatus() {

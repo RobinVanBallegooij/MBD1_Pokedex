@@ -21,8 +21,6 @@ function setup() {
 	$(document).on("pageshow", function(event, data) {
 		var page = data.toPage[0].id;
 
-		console.log("PAGE: " + page);
-
 		switch (page) {
 			case 'compendium' : 	if (isLoadingCompendium) {
 										showLoader(loadingMessage);
@@ -274,7 +272,6 @@ function hideDetailsLabels() {
 
 function loadOwnedPokemon() {
 
-	console.log("LOAD OWNED POKEMON");
 	var listContent = '';
 
 	var ownedPokemon = getOwnedPokemon();
@@ -319,7 +316,6 @@ function loadOwnedPokemon() {
 
 function saveSettings(event) {
 	event.preventDefault();
-	console.log("SAVED");
 	//get selected radio choice
 	var value = $("#settings_language :radio:checked").val();
 	

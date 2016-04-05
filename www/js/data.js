@@ -10,7 +10,6 @@ Storage.prototype.getArray = function(key) {
 
 function storePokemonWithId(id) {
 
-	console.log("store pokemon with id: " + id);
 	//get array of currently stored pokemon
 	var ownedPokemon = window.localStorage.getArray("ownedPokemon");
 
@@ -30,8 +29,6 @@ function storePokemonWithId(id) {
 }
 
 function getOwnedPokemon() {
-
-	console.log("get owned pokemon");
 
 	var ownedPokemon = window.localStorage.getArray("ownedPokemon");
 
@@ -53,13 +50,7 @@ function ownsPokemonWithId(id) {
 	return false;
 }
 
-function clearLocalStorage() {
-	console.log("clear local storage");
-	window.localStorage.clear();
-}
-
 function clearOwnedPokemon() {
-	console.log("clear owned pokemon");
 	window.localStorage.removeItem("ownedPokemon");
 }
 
@@ -84,7 +75,6 @@ function getStoredGeoLocations() {
 }
 
 function removeGeoLocation(location) {
-	console.log(location);
 	geoLocations = getStoredGeoLocations();
 
 	//remove location.
@@ -97,7 +87,6 @@ function removeGeoLocation(location) {
 		storeGeoLocations(filteredGeoLocations);
 	}
 
-	console.log(getStoredGeoLocations());
 }
 
 function clearGeoLocations() {
