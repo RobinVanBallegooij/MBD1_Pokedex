@@ -29,7 +29,7 @@ function setEnglish() {
 	$("span#label_latitude").text("Latitude: ");
 	$("span#label_target").text("Target:");
 	$("span#label_status").text("Status:");
-	$("span#label_catch_button").text("Catch");
+	//$("span#label_catch_button").text("Catch");
 	$("span#label_compass_tooltip").text("To use the compass, keep your device in portrait mode");
 	$("span#label_geo_hunt_status").text("Select a target");
 	$("").text("");

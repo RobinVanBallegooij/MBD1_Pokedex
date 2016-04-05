@@ -13,8 +13,6 @@ function setupGeo() {
   		};
 	})();
 
-	$("span#label_my_pokemon").text("mijn pokemon");
-
 	activateGeo();
 
 	activateCompass();
@@ -208,6 +206,7 @@ function checkVicinityStatus() {
 			} else {
 				$("#label_geo_hunt_status").removeClass().addClass('text-gray');
 				$("#label_geo_hunt_status").text("Too far away");
+			}
 		}	
 	} else {
 		$("#label_geo_hunt_status").removeClass();
