@@ -3,9 +3,11 @@ document.addEventListener("deviceready", setup, false);
 
 
 function setup() {
-	console.log("setup");
 
-	setEnglish();
+	loadInitialLanguage();
+
+	//hide labels
+	hideDetailsLabels();
 
 	//LIFECYCLE EVENTS
 
@@ -66,6 +68,9 @@ function setup() {
 
 	$('#details_browser').hide();
 
+	//save settings
+	$('#button_save_settings').on('click', saveSettings);
+
 	//menu panel
     $(document).on('click', '#open_menu', function(){   
        	$.mobile.activePage.find('#menuPanel').panel("open");       
@@ -107,6 +112,9 @@ var next = '';
 var isLoadingCompendium = false;
 var isLoadingNext = false;
 var isLoadingOwnedPokemon = false;
+
+var language_english = "english";
+var language_dutch = "dutch";
 
 var pokedexUrl = "http://www.pokemon.com/us/pokedex/";
 
@@ -203,12 +211,19 @@ function loadPokemonDetails(event) {
 
 		$('#details_image_container').append('<img id="details_image" src="' + imageUrl + '" alt="Pokemon" class="pokemon-image" />');
 
-		$('#details_name').text("Name: " + pokemonName);
-		$('#details_height').text("Height: " + pokemonHeight);
-		$('#details_weight').text("Weight: " + pokemonWeight);
+		//show labels
+		$("span#label_details_name").show();
+		$("span#label_details_height").show();
+		$("span#label_details_weight").show();
+		$("span#label_details_types").show();
+		$("span#label_details_abilities").show();
+
+		//set data
+		$('#details_name').text("" + pokemonName);
+		$('#details_height').text("" + pokemonHeight);
+		$('#details_weight').text("" + pokemonWeight);
 
 		//set types
-		$('#details_types').text("Types: ");
 
 		for (i = 0; i < pokemonTypes.length; i++) {
 			$('#details_types').append(pokemonTypes[i]);
@@ -216,9 +231,6 @@ function loadPokemonDetails(event) {
 				$('#details_types').append(", ");
 			}
 		}
-
-		//set abilities
-		$('#details_abilities').text("Abilities: ");
 
 		for (i = 0; i < pokemonAbilities.length; i++) {
 			$('#details_abilities').append("<div class=\"ability\">" + pokemonAbilities[i] + "</div>");
@@ -244,6 +256,16 @@ function clearPokemonDetails() {
 
 	$('#details_browser').attr('value', '');
 	$('#details_browser').hide();
+
+	hideDetailsLabels();
+}
+
+function hideDetailsLabels() {
+	$("span#label_details_name").hide();
+	$("span#label_details_height").hide();
+	$("span#label_details_weight").hide();
+	$("span#label_details_types").hide();
+	$("span#label_details_abilities").hide();
 }
 
 // OWNED POKEMON
@@ -291,6 +313,40 @@ function loadOwnedPokemon() {
 		hideLoader();
 	}
 
+}
+
+function saveSettings(event) {
+	event.preventDefault();
+	console.log("SAVED");
+	//get selected radio choice
+	var value = $("#settings_language :radio:checked").val();
+	
+	if (typeof value !== 'undefined') {
+		if (value === language_english) {
+			setEnglish();
+		} else if (value === language_dutch) {
+			setDutch();
+		}
+		saveLanguage(value);
+	}
+}
+
+function loadInitialLanguage() {
+	var language = getLanguage();
+
+	if (language !== null) {
+		//set radio button
+		if (language === language_english) {
+			$("input#radio-choice-0a").prop("checked", true);
+			setEnglish();
+		} else if (language === language_dutch) {
+			$("input#radio-choice-0b").prop("checked", true);
+			setDutch();
+		}
+	} else {
+		saveLanguage(language_english);
+		$("input#radio-choice-0a").prop("checked", true);
+	}
 }
 
 /* NOTES

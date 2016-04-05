@@ -12,9 +12,8 @@ function hideLoader() {
 
 function setEnglish() {
 
-	console.log("SET ENGLISH");
 	//menu
-	$("span#label_my_pokemon").text("My Pokémon");
+	$("span#label_my_pokemon").text("My Pokemon");
 	$("span#label_hunt").text("Hunt");
 	$("span#label_settings").text("Settings");
 
@@ -29,14 +28,61 @@ function setEnglish() {
 	$("span#label_latitude").text("Latitude: ");
 	$("span#label_target").text("Target:");
 	$("span#label_status").text("Status:");
-	//$("span#label_catch_button").text("Catch");
+	$("span#label_catch_button").text("Catch");
 	$("span#label_compass_tooltip").text("To use the compass, keep your device in portrait mode");
 	$("span#label_geo_hunt_status").text("Select a target");
-	$("").text("");
-	$("").text("");
 
+	//catch pokemon popup
+	$("span#label_catch_pokemon").text("You caught a pokemon!");
+	
+	//details
+	$("span#label_details_name").text("Name: ");
+	$("span#label_details_height").text("Height: ");
+	$("span#label_details_weight").text("Weight: ");
+	$("span#label_details_types").text("Types: ");
+	$("span#label_details_abilities").text("Abilities: ");
+
+	//settings
+	$("span#label_settings_page").text("Settings");
+	$("span#label_settings_language").text("Language: ");
+	$("span#label_save_settings").text("Save");
+	
 }
 
 function setDutch() {
 
+	//menu
+	$("span#label_my_pokemon").text("Mijn Pokemon");
+	$("span#label_hunt").text("Jagen");
+	$("span#label_settings").text("Instellingen");
+
+	//my pokemon
+	$("span#label_my_pokemon_page").text("Mijn Pokemon");
+
+	//hunt
+	$("span#label_hunt_page").text("Pokemon jagen");
+	$("span#label_new_locations").text("Nieuwe locaties");
+	$("span#label_current_position").text("Huidige positie:");
+	$("span#label_longitude").text("Lengtegraad: ");
+	$("span#label_latitude").text("Breedtegraad: ");
+	$("span#label_target").text("Doelwit:");
+	$("span#label_status").text("Status:");
+	$("span#label_catch_button").text("Vangen");
+	$("span#label_compass_tooltip").text("Houdt het apparaat in portret modus om het compass te gebruiken");
+	$("span#label_geo_hunt_status").text("Selecteer een doelwit");
+
+	//catch pokemon popup
+	$("span#label_catch_pokemon").text("Je hebt een pokemon gevangen!");
+	
+	//details
+	$("span#label_details_name").text("Naam: ");
+	$("span#label_details_height").text("Grootte: ");
+	$("span#label_details_weight").text("Gewicht: ");
+	$("span#label_details_types").text("Soorten: ");
+	$("span#label_details_abilities").text("Vaardigheden: ");
+
+	//settings
+	$("span#label_settings_page").text("Instellingen");
+	$("span#label_settings_language").text("Taal: ");
+	$("span#label_save_settings").text("Opslaan");
 }

@@ -46,7 +46,7 @@
                     <li><a href="#compendium" data-transition="slide">Compendium</a></li>
                     <li><a href="#ownedPokemon" data-transition="slide"><span id="label_my_pokemon">My Pokémon</span></a></li>
                     <li><a href="#geoHunt" data-transition="slide"><span id="label_hunt">Hunt</span></a></li>
-                    <li><a href="#" data-transition="slide"><span id="label_settings">Settings</span></a></li>
+                    <li><a href="#settings" data-transition="slide"><span id="label_settings">Settings</span></a></li>
                 </ul>
             </div>
             <div data-role="header" class="ui-header" data-position="fixed">
@@ -67,7 +67,7 @@
                     <li><a href="#compendium" data-transition="slide">Compendium</a></li>
                     <li><a href="#ownedPokemon" data-transition="slide"><span id="label_my_pokemon">My Pokémon</span></a></li>
                     <li><a href="#geoHunt" data-transition="slide"><span id="label_hunt">Hunt</span></a></li>
-                    <li><a href="#" data-transition="slide"><span id="label_settings">Settings</span></a></li>
+                    <li><a href="#settings" data-transition="slide"><span id="label_settings">Settings</span></a></li>
                 </ul>
             </div>
             <div data-role="header" data-position="fixed">
@@ -77,11 +77,11 @@
             <div data-role="main" class="ui-content">
                 <div>
                     <div id="details_image_container"></div>
-                    <p id="details_name"></p>
-                    <p id="details_height"></p>
-                    <p id="details_weight"></p>
-                    <p id="details_types"></p>
-                    <div id="details_abilities"></div>
+                    <p><span id="label_details_name"></span><span id="details_name"></span></p>
+                    <p><span id="label_details_height"></span><span id="details_height"></span></p>
+                    <p><span id="label_details_weight"></span><span id="details_weight"></span></p>
+                    <p><span id="label_details_types"></span><span id="details_types"></span></p>
+                    <div><span id="label_details_abilities"></span><div id="details_abilities"></div></div>
                     <button id="details_browser" value="">Open in online pokedex</button>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                     <li><a href="#compendium" data-transition="slide">Compendium</a></li>
                     <li><a href="#ownedPokemon" data-transition="slide"><span id="label_my_pokemon">My Pokémon</span></a></li>
                     <li><a href="#geoHunt" data-transition="slide"><span id="label_hunt">Hunt</span></a></li>
-                    <li><a href="#" data-transition="slide"><span id="label_settings">Settings</span></a></li>
+                    <li><a href="#settings" data-transition="slide"><span id="label_settings">Settings</span></a></li>
                 </ul>
             </div>
             <div data-role="header" data-position="fixed">
@@ -116,7 +116,7 @@
                     <li><a href="#compendium" data-transition="slide">Compendium</a></li>
                     <li><a href="#ownedPokemon" data-transition="slide"><span id="label_my_pokemon">My Pokémon</span></a></li>
                     <li><a href="#geoHunt" data-transition="slide"><span id="label_hunt">Hunt</span></a></li>
-                    <li><a href="#" data-transition="slide"><span id="label_settings">Settings</span></a></li>
+                    <li><a href="#settings" data-transition="slide"><span id="label_settings">Settings</span></a></li>
                 </ul>
             </div>
             <div data-role="header" data-position="fixed">
@@ -147,14 +147,14 @@
                         <p><span id="label_compass_tooltip">To use the compass, keep your device in portrait mode</span></p>
                     </div>
                     <div id="distance"></div>
-                    <button id="catch">Catch</button>
+                    <button id="catch"><span id="label_catch_button">Catch</span></button>
                     <button id="route">Route</button>
                 </div>
             </div>
             <!-- Catch popup -->
             <div data-role="popup" id="catchPopup">
                 <div data-role="header">
-                    <div class="dialog-header">You caught a pokemon!</div>
+                    <div class="dialog-header"><span id="label_catch_pokemon">You caught a pokemon!</span></div>
                 </div>
                 <div data-role="main" class="ui-content">
                     <div id="catch_image"></div>
@@ -164,6 +164,34 @@
             <!-- End catch popup -->
         </div>
         <!-- End geo hunt -->
+
+        <!-- Settings -->
+        <div data-role="page" id="settings" data-theme="a">
+            <div id="menuPanel" data-role="panel" data-theme="a">
+                <ul data-role="listview" data-theme="a">
+                    <li><a href="#compendium" data-transition="slide">Compendium</a></li>
+                    <li><a href="#ownedPokemon" data-transition="slide"><span id="label_my_pokemon">My Pokémon</span></a></li>
+                    <li><a href="#geoHunt" data-transition="slide"><span id="label_hunt">Hunt</span></a></li>
+                    <li><a href="#settings" data-transition="slide"><span id="label_settings">Settings</span></a></li>
+                </ul>
+            </div>
+            <div data-role="header" data-position="fixed">
+                <a href="#" id="open_menu" class="ui-btn-left ui-btn-corner-all ui-btn ui-icon-grid ui-btn-icon-notext ui-shadow" title=" Menu " data-form="ui-icon" data-role="button" role="button"> Menu </a>
+                <h1><span id="label_settings_page">Settings</span></h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h4><span id="label_settings_language">Language</span></h4>
+                <fieldset data-role="controlgroup" data-type="vertical" name="settings_language" id="settings_language">
+                    <label>
+                        <input type="radio" name="radio-choice-0" id="radio-choice-0a" value="english">English
+                    </label>
+                    <label for="radio-choice-0b">Nederlands</label>
+                    <input type="radio" name="radio-choice-0" id="radio-choice-0b" class="custom" value="dutch">
+                </fieldset>
+                <button id="button_save_settings"><span id="label_save_settings">Save</span></button>
+            </div>
+        </div>
+        <!-- End settings -->
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>

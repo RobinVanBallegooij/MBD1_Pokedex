@@ -103,3 +103,14 @@ function removeGeoLocation(location) {
 function clearGeoLocations() {
 	window.localStorage.removeItem("geoLocations");
 }
+
+// SETTINGS
+
+function saveLanguage(language) {
+	window.localStorage.setItem("language", language);
+}
+
+function getLanguage() {
+	var language = window.localStorage.getItem("language");
+	return language;
+}
